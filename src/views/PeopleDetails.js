@@ -17,6 +17,7 @@ const PeopleDetails = ({ id }) => {
                 axios.get(res.data.homeworld)
                     .then(homeRes => {
                         setHomeworld(homeRes.data.name);
+                        // extract ID portion of URL to build homeworldLink
                         let temp = res.data.homeworld.split("/");
                         temp.pop()
                         setHomeworldLink("/planets/" + temp.pop() + "/");
