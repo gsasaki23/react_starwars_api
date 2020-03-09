@@ -39,7 +39,7 @@ function App() {
             
           </div>
           <div className="col">
-            {idInput > 0 ? <input type="submit" value="Search"></input> : <input type="submit" value="Search" style={{visibility:"hidden"}}></input>}
+            {idInput > 0 ? <input type="submit" value="Search" id="butt"></input> : <input type="submit" value="Search" style={{visibility:"hidden"}}id="butt"></input>}
           </div>
         </form>
       </nav>
