@@ -1,24 +1,50 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import { Link, Redirect, Router, navigate } from "@reach/router";
+
+import HomePage from "./views/HomePage";
+import PeopleDetails from "./views/PeopleDetails";
+import PlanetDetails from "./views/PlanetDetails";
 
 function App() {
+  const [rscInput, setRscInput] = useState("people");
+  const [idInput, setIdInput] = useState(null);
+
+  const navOnSumbit = event => {
+    event.preventDefault();
+    navigate(`/${rscInput}/${idInput}`);
+  }
+  const onrscInputChange = event => {
+    setRscInput(event.target.value)
+  }
+  const onIDInputChange = event => {
+    setIdInput(event.target.value)
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {/* Show on EVERY page */}
+      <nav>
+        <form onSubmit={navOnSumbit}>
+          <label>Search for: </label>
+          <select onChange={onrscInputChange}>
+            <option value="people">People</option>
+            <option value="planets">Planets</option>
+          </select>
+          <label>ID: </label>
+          <input type="number" onChange={onIDInputChange}></input>
+          {idInput > 0 && <input type="submit" value="Search"></input>}
+        </form>
+      </nav>
+
+      {/* Part of page that varies */}
+      <Router>
+        <HomePage path="/" />
+        <PeopleDetails path="/people/:id" />
+        <PlanetDetails path="/planets/:id" />
+
+        <Redirect from="/home" to="/" noThrow="true" />
+      </Router>
     </div>
   );
 }
