@@ -8,7 +8,7 @@ import PlanetDetails from "./views/PlanetDetails";
 
 function App() {
   const [rscInput, setRscInput] = useState("people");
-  const [idInput, setIdInput] = useState(null);
+  const [idInput, setIdInput] = useState(1);
 
   const navOnSumbit = event => {
     event.preventDefault();
@@ -26,14 +26,18 @@ function App() {
       {/* Show on EVERY page */}
       <nav>
         <form onSubmit={navOnSumbit}>
-          <label>Search for: </label>
-          <select onChange={onrscInputChange}>
-            <option value="people">People</option>
-            <option value="planets">Planets</option>
-          </select>
-          <label>ID: </label>
-          <input type="number" onChange={onIDInputChange}></input>
-          {idInput > 0 && <input type="submit" value="Search"></input>}
+          <div className="col">
+            <label>Search for: </label>
+            <select onChange={onrscInputChange}>
+              <option value="people">People</option>
+              <option value="planets">Planets</option>
+            </select>
+            <label>ID: </label>
+            <input type="number" onChange={onIDInputChange} value={idInput} min="1"></input>  
+          </div>
+          <div className="col">
+            {idInput > 0 ? <input type="submit" value="Search"></input> : <input type="submit" value="Search" style={{visibility:"hidden"}}></input>}
+          </div>
         </form>
       </nav>
 
